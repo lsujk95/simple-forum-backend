@@ -14,6 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/', function () {
+   return response()->json([
+       'success' => true,
+       'message' => "API OK",
+   ]);
+});
+
+Route::group([
+    'namespace' => 'Auth',
+    'prefix' => 'auth',
+    'as' => 'auth.',
+], function () {
+    Route::post('/get-token', [App\Http\Controllers\Auth\AuthController::class, 'getToken'])
+        ->name('get-token');
+
+    Route::middleware('auth:sanctum')
+        ->post('/refresh-token', [App\Http\Controllers\Auth\AuthController::class, 'refreshToken'])
+        ->name('refresh-token');
+});
+
+Route::group([
+    'namespace' => 'User',
+    'prefix' => 'user',
+    'as' => 'user.',
+    'middleware' => ['auth:sanctum'],
+], function () {
+    Route::get('/me', function (Request $request) {
+        return $request->user();
+    });
 });
