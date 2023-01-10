@@ -8,10 +8,44 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Controllers\Controller;
 use App\Handlers\ApiResult;
 use App\Models\User;
-use Carbon\Carbon;
+use App\Helpers\TokenHelper;
 
 class AuthController extends Controller
 {
+
+    /**
+     * Register new user
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required|email',
+                'password' => 'required',
+                'device_name' => 'required',
+            ]);
+
+            $user = User::where('email', $request->input('email'))->first();
+            if ($user) {
+                throw new \Exception("User already exists.");
+            }
+
+            $user = User::create(request(['name', 'email', 'password']));
+            $userTokenDetails = TokenHelper::createUserToken(
+                $user,
+                $request->input('device_name'),
+            );
+
+            return ApiResult::getSuccessResult($userTokenDetails);
+        } catch (\Exception $e) {
+            return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
+        }
+    }
+
     /**
      * Returns newly generated token for passed credentials
      *
@@ -34,17 +68,12 @@ class AuthController extends Controller
                 ]);
             }
 
-            $expiresAt = Carbon::now()->addMinutes(config('sanctum.expiration'));
-            $userToken = $user->createToken(
+            $userTokenDetails = TokenHelper::createUserToken(
+                $user,
                 $request->input('device_name'),
-                ['*'],
-                $expiresAt,
-            )->plainTextToken;
+            );
 
-            return ApiResult::getSuccessResult([
-                'token' => $userToken,
-                'expires_at' => $expiresAt,
-            ]);
+            return ApiResult::getSuccessResult($userTokenDetails);
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
         }
@@ -63,19 +92,14 @@ class AuthController extends Controller
                 'device_name' => 'required',
             ]);
 
-            $expiresAt = Carbon::now()->addMinutes(config('sanctum.expiration'));
-            $newToken = $request->user()->createToken(
+            $userTokenDetails = TokenHelper::createUserToken(
+                $request->user(),
                 $request->input('device_name'),
-                ['*'],
-                $expiresAt,
-            )->plainTextToken;
+            );
 
             $request->user()->currentAccessToken()->delete();
 
-            return ApiResult::getSuccessResult([
-                'token' => $newToken,
-                'expires_at' => $expiresAt,
-            ]);
+            return ApiResult::getSuccessResult($userTokenDetails);
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
         }

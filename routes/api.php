@@ -21,11 +21,15 @@ Route::get('/', function () {
    ]);
 });
 
+// Auth
 Route::group([
     'namespace' => 'Auth',
     'prefix' => 'auth',
     'as' => 'auth.',
 ], function () {
+    Route::post('/register', [App\Http\Controllers\Auth\AuthController::class, 'register'])
+        ->name('register');
+
     Route::post('/get-token', [App\Http\Controllers\Auth\AuthController::class, 'getToken'])
         ->name('get-token');
 
@@ -34,6 +38,7 @@ Route::group([
         ->name('refresh-token');
 });
 
+// User
 Route::group([
     'namespace' => 'User',
     'prefix' => 'user',
