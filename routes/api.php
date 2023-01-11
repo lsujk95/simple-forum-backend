@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,14 +26,14 @@ Route::group([
     'prefix' => 'auth',
     'as' => 'auth.',
 ], function () {
-    Route::post('/register', [App\Http\Controllers\Auth\AuthController::class, 'register'])
+    Route::post('/register', [\App\Http\Controllers\AuthController::class, 'register'])
         ->name('register');
 
-    Route::post('/get-token', [App\Http\Controllers\Auth\AuthController::class, 'getToken'])
+    Route::post('/get-token', [\App\Http\Controllers\AuthController::class, 'getToken'])
         ->name('get-token');
 
     Route::middleware('auth:sanctum')
-        ->post('/refresh-token', [App\Http\Controllers\Auth\AuthController::class, 'refreshToken'])
+        ->post('/refresh-token', [\App\Http\Controllers\AuthController::class, 'refreshToken'])
         ->name('refresh-token');
 });
 
@@ -45,7 +44,13 @@ Route::group([
     'as' => 'user.',
     'middleware' => ['auth:sanctum'],
 ], function () {
-    Route::get('/me', function (Request $request) {
-        return $request->user();
-    });
+
+    Route::get('/me', [App\Http\Controllers\UserController::class, 'me'])
+        ->name('me');
+
+    Route::get('/actions', [App\Http\Controllers\UserController::class, 'actions'])
+        ->name('actions');
+
+    Route::get('/roles', [App\Http\Controllers\UserController::class, 'roles'])
+        ->name('roles');
 });
