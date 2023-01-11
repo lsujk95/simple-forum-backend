@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Podane dane nie zgadzają się.',
+    'password' => 'Podane hasło jest niepoprawne.',
+    'throttle' => 'Za dużo prób logowania. Spróbuj ponownie za :seconds sekund.',
 
-    'token_created' => 'Token has been created.',
-    'token_refreshed' => 'Token has been refreshed.',
+    'token_created' => 'Token został utworzony.',
+    'token_refreshed' => 'Token został odświeżony.',
 ];

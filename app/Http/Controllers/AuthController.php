@@ -24,7 +24,6 @@ class AuthController extends Controller
                 'name' => 'required',
                 'email' => 'required|email',
                 'password' => 'required',
-                'device_name' => 'required',
             ]);
 
             $user = User::where('email', $request->input('email'))->first();
@@ -35,10 +34,10 @@ class AuthController extends Controller
             $user = User::create(request(['name', 'email', 'password']));
             $userTokenDetails = TokenHelper::createUserToken(
                 $user,
-                $request->input('device_name'),
+                $request->header('Device-Name', 'unknown'),
             );
 
-            return ApiResult::getSuccessResult($userTokenDetails);
+            return ApiResult::getSuccessResult($userTokenDetails, __('auth.token_created'));
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
         }
@@ -56,22 +55,21 @@ class AuthController extends Controller
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required',
-                'device_name' => 'required',
             ]);
 
             $user = User::where('email', $request->input('email'))->first();
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 throw ValidationException::withMessages([
-                    'email' => ['The provided credentials are incorrect.'],
+                    'email' => [__('validation.incorrect_credentials')],
                 ]);
             }
 
             $userTokenDetails = TokenHelper::createUserToken(
                 $user,
-                $request->input('device_name'),
+                $request->header('Device-Name', 'unknown'),
             );
 
-            return ApiResult::getSuccessResult($userTokenDetails);
+            return ApiResult::getSuccessResult($userTokenDetails, __('auth.token_created'));
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
         }
@@ -86,18 +84,14 @@ class AuthController extends Controller
     public function refreshToken(Request $request)
     {
         try {
-            $request->validate([
-                'device_name' => 'required',
-            ]);
-
             $userTokenDetails = TokenHelper::createUserToken(
                 $request->user(),
-                $request->input('device_name'),
+                $request->header('Device-Name', 'unknown'),
             );
 
             $request->user()->currentAccessToken()->delete();
 
-            return ApiResult::getSuccessResult($userTokenDetails);
+            return ApiResult::getSuccessResult($userTokenDetails, __('auth.token_refreshed'));
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
         }
