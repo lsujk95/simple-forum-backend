@@ -6,6 +6,7 @@ use App\Helpers\TokenHelper;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -19,13 +20,17 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        try {
-            $request->validate([
-                'name' => 'required',
-                'email' => 'required|email',
-                'password' => 'required',
-            ]);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
 
+        if ($validator->fails()) {
+            return ApiResult::getErrorResult('UNVALIDATED', $validator->errors());
+        }
+
+        try {
             $user = User::where('email', $request->input('email'))->first();
             if ($user) {
                 throw new \Exception("User already exists.");
@@ -51,12 +56,16 @@ class AuthController extends Controller
      */
     public function getToken(Request $request)
     {
-        try {
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required',
-            ]);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
 
+        if ($validator->fails()) {
+            return ApiResult::getErrorResult('UNVALIDATED', $validator->errors());
+        }
+
+        try {
             $user = User::where('email', $request->input('email'))->first();
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 throw ValidationException::withMessages([

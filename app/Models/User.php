@@ -19,7 +19,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property integer $updated_at
  * @package App\Models
  */
-
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;

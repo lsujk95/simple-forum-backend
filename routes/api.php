@@ -54,3 +54,99 @@ Route::group([
     Route::get('/roles', [App\Http\Controllers\UserController::class, 'roles'])
         ->name('roles');
 });
+
+// Categories
+Route::group([
+    'namespace' => 'Categories',
+    'prefix' => 'categories',
+    'as' => 'categories.',
+    'middleware' => ['auth:sanctum'],
+], function () {
+
+    Route::get('/', [App\Http\Controllers\CategoryController::class, 'index'])
+        ->name('index');
+
+    Route::post('/', [App\Http\Controllers\CategoryController::class, 'store'])
+        ->name('store');
+
+    Route::get('/{category}', [App\Http\Controllers\CategoryController::class, 'show'])
+        ->name('show');
+
+    Route::put('/{category}', [App\Http\Controllers\CategoryController::class, 'update'])
+        ->name('update');
+
+    Route::delete('/{category}', [App\Http\Controllers\CategoryController::class, 'destroy'])
+        ->name('destroy');
+});
+
+// Forums
+Route::group([
+    'namespace' => 'Forums',
+    'prefix' => 'forums',
+    'as' => 'forums.',
+    'middleware' => ['auth:sanctum'],
+], function () {
+
+    Route::get('/', [App\Http\Controllers\ForumController::class, 'index'])
+        ->name('index');
+
+    Route::post('/', [App\Http\Controllers\ForumController::class, 'store'])
+        ->name('store');
+
+    Route::get('/{forum}', [App\Http\Controllers\ForumController::class, 'show'])
+        ->name('show');
+
+    Route::put('/{forum}', [App\Http\Controllers\ForumController::class, 'update'])
+        ->name('update');
+
+    Route::delete('/{forum}', [App\Http\Controllers\ForumController::class, 'destroy'])
+        ->name('destroy');
+});
+
+// Threads
+Route::group([
+    'namespace' => 'Threads',
+    'prefix' => 'threads',
+    'as' => 'threads.',
+    'middleware' => ['auth:sanctum'],
+], function () {
+
+    Route::get('/', [App\Http\Controllers\ThreadController::class, 'index'])
+        ->name('index');
+
+    Route::post('/', [App\Http\Controllers\ThreadController::class, 'store'])
+        ->name('store');
+
+    Route::get('/{thread}', [App\Http\Controllers\ThreadController::class, 'show'])
+        ->name('show');
+
+    Route::put('/{thread}', [App\Http\Controllers\ThreadController::class, 'update'])
+        ->name('update');
+
+    Route::delete('/{thread}', [App\Http\Controllers\ThreadController::class, 'destroy'])
+        ->name('destroy');
+});
+
+// Replies
+Route::group([
+    'namespace' => 'Replies',
+    'prefix' => 'replies',
+    'as' => 'replies.',
+    'middleware' => ['auth:sanctum'],
+], function () {
+
+    Route::get('/', [App\Http\Controllers\ReplyController::class, 'index'])
+        ->name('index');
+
+    Route::post('/', [App\Http\Controllers\ReplyController::class, 'store'])
+        ->name('store');
+
+    Route::get('/{reply}', [App\Http\Controllers\ReplyController::class, 'show'])
+        ->name('show');
+
+    Route::put('/{reply}', [App\Http\Controllers\ReplyController::class, 'update'])
+        ->name('update');
+
+    Route::delete('/{reply}', [App\Http\Controllers\ReplyController::class, 'destroy'])
+        ->name('destroy');
+});

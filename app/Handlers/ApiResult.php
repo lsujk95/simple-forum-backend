@@ -13,13 +13,12 @@ class ApiResult {
         $result = [];
         $result['success'] = $this->success;
 
-        if ($result['success']) {
-            $result['data'] = $this->data;
-            $result['message'] = $this->message;
-        } else {
+        if (!$result['success']) {
             $result['code'] = $this->code;
-            $result['message'] = $this->message;
         }
+
+        $result['data'] = $this->data;
+        $result['message'] = $this->message;
 
         return response()->json($result);
     }
@@ -34,11 +33,12 @@ class ApiResult {
         return $result->getResult();
     }
 
-    static function getErrorResult($code, $message = null): \Illuminate\Http\JsonResponse
+    static function getErrorResult($code, $data = null, $message = null) : \Illuminate\Http\JsonResponse
     {
         $result = new ApiResult();
         $result->success = false;
         $result->code = $code;
+        $result->data = $data;
         $result->message = $message;
 
         return $result->getResult();

@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function me(Request $request)
     {
-        return ApiResult::getSuccessResult($request->user());
+        return ApiResult::getSuccessResult($request->user()->id);
     }
 
     /**
