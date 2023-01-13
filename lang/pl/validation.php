@@ -14,6 +14,7 @@ return [
     */
 
     'incorrect_credentials' => 'Wprowadzone dane nie są prawidłowe.',
+    'user_already_exists' => 'Użytkownik o podanym adresie email już istnieje.',
 
     'accepted' => 'Pole :attribute musi zostać zaakceptowane.',
     'accepted_if' => 'The :attribute must be accepted when :other is :value.',

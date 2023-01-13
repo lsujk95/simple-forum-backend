@@ -14,6 +14,7 @@ return [
     */
 
     'incorrect_credentials' => 'The provided credentials are incorrect.',
+    'user_already_exists' => 'User already exists.',
 
     'accepted' => 'The :attribute must be accepted.',
     'accepted_if' => 'The :attribute must be accepted when :other is :value.',

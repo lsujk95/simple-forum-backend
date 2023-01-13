@@ -33,6 +33,9 @@ class AuthController extends Controller
         try {
             $user = User::where('email', $request->input('email'))->first();
             if ($user) {
+                return ApiResult::getErrorResult('UNVALIDATED',[
+                    'email' => [__('validation.user_already_exists')],
+                ]);
                 throw new \Exception("User already exists.");
             }
 
@@ -68,7 +71,7 @@ class AuthController extends Controller
         try {
             $user = User::where('email', $request->input('email'))->first();
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
-                throw ValidationException::withMessages([
+                return ApiResult::getErrorResult('UNVALIDATED',[
                     'email' => [__('validation.incorrect_credentials')],
                 ]);
             }
