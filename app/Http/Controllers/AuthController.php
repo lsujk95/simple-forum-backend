@@ -36,16 +36,18 @@ class AuthController extends Controller
                 return ApiResult::getErrorResult('UNVALIDATED',[
                     'email' => [__('validation.user_already_exists')],
                 ]);
-                throw new \Exception("User already exists.");
             }
 
             $user = User::create(request(['name', 'email', 'password']));
-            $userTokenDetails = TokenHelper::createUserToken(
+            $result = TokenHelper::createUserToken(
                 $user,
                 $request->header('Device-Name', 'unknown'),
             );
 
-            return ApiResult::getSuccessResult($userTokenDetails, __('auth.token_created'));
+            $result['user'] = $user;
+            $result['user_actions'] = $user->getActions();
+
+            return ApiResult::getSuccessResult($result, __('auth.token_created'));
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
         }
@@ -76,12 +78,15 @@ class AuthController extends Controller
                 ]);
             }
 
-            $userTokenDetails = TokenHelper::createUserToken(
+            $result = TokenHelper::createUserToken(
                 $user,
                 $request->header('Device-Name', 'unknown'),
             );
 
-            return ApiResult::getSuccessResult($userTokenDetails, __('auth.token_created'));
+            $result['user'] = $user;
+            $result['user_actions'] = $user->getActions();
+
+            return ApiResult::getSuccessResult($result, __('auth.token_created'));
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
         }
@@ -96,14 +101,17 @@ class AuthController extends Controller
     public function refreshToken(Request $request)
     {
         try {
-            $userTokenDetails = TokenHelper::createUserToken(
+            $result = TokenHelper::createUserToken(
                 $request->user(),
                 $request->header('Device-Name', 'unknown'),
             );
 
             $request->user()->currentAccessToken()->delete();
 
-            return ApiResult::getSuccessResult($userTokenDetails, __('auth.token_refreshed'));
+//            $result['user'] = $request->user();
+//            $result['user_actions'] = $request->user()->getActions();
+
+            return ApiResult::getSuccessResult($result, __('auth.token_refreshed'));
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), $e->getMessage());
         }

@@ -21,8 +21,7 @@ class TokenHelper {
 
         return [
             'token' => $token,
-            'expires_at' => $expiresAt,
-            'user' => $user,
+            'token_expires_at' => $expiresAt,
         ];
     }
 }
