@@ -48,11 +48,17 @@ class ForumController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Forum  $forum
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Forum $forum)
+    public function show(Request $request, Forum $forum)
     {
+        $withThreads = $request->query('withThreads');
+        if (!empty($withThreads) && boolval($withThreads)) {
+            return ApiResult::getSuccessResult(Forum::with('threads')->find($forum->id));
+        }
+
         return ApiResult::getSuccessResult($forum);
     }
 

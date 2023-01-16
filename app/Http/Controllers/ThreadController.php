@@ -51,11 +51,17 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Thread $thread)
+    public function show(Request $request, Thread $thread)
     {
+        $withReplies = $request->query('withReplies');
+        if (!empty($withReplies) && boolval($withReplies)) {
+            return ApiResult::getSuccessResult(Thread::with('replies')->find($thread->id));
+        }
+
         return ApiResult::getSuccessResult($thread);
     }
 
