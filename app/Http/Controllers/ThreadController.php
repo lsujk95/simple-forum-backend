@@ -59,10 +59,10 @@ class ThreadController extends Controller
     {
         $withReplies = $request->query('withReplies');
         if (!empty($withReplies) && boolval($withReplies)) {
-            return ApiResult::getSuccessResult(Thread::with('replies')->find($thread->id));
+            return ApiResult::getSuccessResult(Thread::with(['replies', 'user'])->find($thread->id));
         }
 
-        return ApiResult::getSuccessResult($thread);
+        return ApiResult::getSuccessResult(Thread::with(['user'])->find($thread->id));
     }
 
     /**

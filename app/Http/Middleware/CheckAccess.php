@@ -33,17 +33,17 @@ class CheckAccess
 
         if ($request->user() == null) {
             if (config('app.debug')) {
-                return response()->json('Unauthorized for: ' . $actionName, 401);
+                return response()->json('Unauthenticated (' . $actionName .')', 401);
             } else {
-                return response()->json('Unauthorized', 401);
+                return response()->json('Unauthenticated', 401);
             }
         }
 
         if (!$request->user()->hasAction($actionName)) {
             if (config('app.debug')) {
-                return response()->json('Forbidden for: ' . $actionName, 403);
+                return response()->json('Unauthorized (' . $actionName . ')', 403);
             } else {
-                return response()->json('Forbidden', 403);
+                return response()->json('Unauthorized', 403);
             }
         }
 

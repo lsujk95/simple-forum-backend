@@ -40,8 +40,8 @@ class ReplyController extends Controller
             $data = $request->all();
             $data['user_id'] = $request->user()->id;
 
-            Reply::create($data);
-            return ApiResult::getSuccessResult();
+            $reply = Reply::create($data);
+            return ApiResult::getSuccessResult(Reply::with(['user'])->find($reply->id));
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), null, $e->getMessage());
         }
@@ -84,7 +84,7 @@ class ReplyController extends Controller
             }
 
             $reply->update($request->all());
-            return ApiResult::getSuccessResult();
+            return ApiResult::getSuccessResult(Reply::with(['user'])->find($reply->id));
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), null, $e->getMessage());
         }
