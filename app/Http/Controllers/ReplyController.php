@@ -69,7 +69,7 @@ class ReplyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'content' => 'required|string',
-            'thread_id' => 'required|numeric',
+            'thread_id' => 'numeric',
         ]);
 
         if ($validator->fails()) {
