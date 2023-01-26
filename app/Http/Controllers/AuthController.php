@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 use App\Handlers\ApiResult;
 use App\Helpers\TokenHelper;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
@@ -100,16 +102,37 @@ class AuthController extends Controller
      */
     public function refreshToken(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return ApiResult::getErrorResult('UNVALIDATED', $validator->errors());
+        }
+
+        $token = PersonalAccessToken::findToken($request->input('token'));
+        if (empty($token)) {
+            return ApiResult::getErrorResult('REFRESH-ERROR.2');
+        }
+
+        if ($token->expires_at > Carbon::now()) {
+            return ApiResult::getErrorResult('REFRESH-ERROR.3');
+        }
+
         try {
+            $user = User::find($token->tokenable_id);
+            if (empty($user)) {
+                return ApiResult::getErrorResult('REFRESH-ERROR.4');
+            }
+
             $result = TokenHelper::createUserToken(
-                $request->user(),
+                $user,
                 $request->header('Device-Name', 'unknown'),
             );
+            $token->delete();
 
-            $request->user()->currentAccessToken()->delete();
-
-//            $result['user'] = $request->user();
-//            $result['user_actions'] = $request->user()->getActions();
+            $result['user'] = $user;
+            $result['user_actions'] = $user->getActions();
 
             return ApiResult::getSuccessResult($result, __('auth.token_refreshed'));
         } catch (\Exception $e) {

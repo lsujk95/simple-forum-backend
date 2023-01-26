@@ -1,6 +1,7 @@
 <?php
 namespace App\Helpers;
 
+use App\Models\User;
 use Carbon\Carbon;
 
 class TokenHelper {
@@ -10,7 +11,7 @@ class TokenHelper {
      * @param string $deviceName
      * @return array
      */
-    static function createUserToken($user, string $deviceName = 'unknown')
+    static function createUserToken(User $user, string $deviceName = 'unknown')
     {
         $expiresAt = Carbon::now()->addMinutes(config('sanctum.expiration'));
         $token = $user->createToken(

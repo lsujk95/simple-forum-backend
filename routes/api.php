@@ -33,7 +33,6 @@ Route::group([
         ->name('get-token');
 
     Route::post('/refresh-token', [\App\Http\Controllers\AuthController::class, 'refreshToken'])
-        ->middleware('auth:sanctum')
         ->name('refresh-token');
 });
 
