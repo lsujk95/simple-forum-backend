@@ -41,8 +41,8 @@ class ThreadController extends Controller
             $data = $request->all();
             $data['user_id'] = $request->user()->id;
 
-            Thread::create($data);
-            return ApiResult::getSuccessResult();
+            $thread = Thread::create($data);
+            return ApiResult::getSuccessResult($thread);
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), null, $e->getMessage());
         }
@@ -77,7 +77,6 @@ class ThreadController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'content' => 'required|string',
-            'forum_id' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -92,7 +91,7 @@ class ThreadController extends Controller
             }
 
             $thread->update($request->all());
-            return ApiResult::getSuccessResult();
+            return ApiResult::getSuccessResult($thread);
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), null, $e->getMessage());
         }
