@@ -17,21 +17,21 @@ return new class extends Migration
     public function up()
     {
         DB::table('actions')->insert([
-            'id' => 'ThreadsController@store',
+            'id' => 'ThreadController@store',
             'description' => 'Creates a new thread',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('actions')->insert([
-            'id' => 'ThreadsController@update',
+            'id' => 'ThreadController@update',
             'description' => 'Updates existing thread',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('actions')->insert([
-            'id' => 'ThreadsController@destroy',
+            'id' => 'ThreadController@destroy',
             'description' => 'Removes existing thread',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -46,21 +46,21 @@ return new class extends Migration
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'ThreadsController@store',
+            'action_id' => 'ThreadController@store',
             'role_id' => 'threads-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'ThreadsController@update',
+            'action_id' => 'ThreadController@update',
             'role_id' => 'threads-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'ThreadsController@destroy',
+            'action_id' => 'ThreadController@destroy',
             'role_id' => 'threads-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -74,9 +74,9 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::table('actions')->delete(['id' => 'ThreadsController@store']);
-        DB::table('actions')->delete(['id' => 'ThreadsController@update']);
-        DB::table('actions')->delete(['id' => 'ThreadsController@destroy']);
+        DB::table('actions')->delete(['id' => 'ThreadController@store']);
+        DB::table('actions')->delete(['id' => 'ThreadController@update']);
+        DB::table('actions')->delete(['id' => 'ThreadController@destroy']);
 
         DB::table('roles')->delete(['id' => 'threads-management']);
     }

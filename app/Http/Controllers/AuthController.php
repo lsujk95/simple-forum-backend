@@ -40,7 +40,12 @@ class AuthController extends Controller
                 ]);
             }
 
-            $user = User::create(request(['name', 'email', 'password']));
+            $user = new User();
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+
             $result = TokenHelper::createUserToken(
                 $user,
                 $request->header('Device-Name', 'unknown'),

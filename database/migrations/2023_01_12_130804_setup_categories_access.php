@@ -17,21 +17,21 @@ return new class extends Migration
     public function up()
     {
         DB::table('actions')->insert([
-            'id' => 'CategoriesController@store',
+            'id' => 'CategoryController@store',
             'description' => 'Creates a new category',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('actions')->insert([
-            'id' => 'CategoriesController@update',
+            'id' => 'CategoryController@update',
             'description' => 'Updates existing category',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('actions')->insert([
-            'id' => 'CategoriesController@destroy',
+            'id' => 'CategoryController@destroy',
             'description' => 'Removes existing category',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -46,21 +46,21 @@ return new class extends Migration
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'CategoriesController@store',
+            'action_id' => 'CategoryController@store',
             'role_id' => 'categories-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'CategoriesController@update',
+            'action_id' => 'CategoryController@update',
             'role_id' => 'categories-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'CategoriesController@destroy',
+            'action_id' => 'CategoryController@destroy',
             'role_id' => 'categories-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -74,9 +74,9 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::table('actions')->delete(['id' => 'CategoriesController@store']);
-        DB::table('actions')->delete(['id' => 'CategoriesController@update']);
-        DB::table('actions')->delete(['id' => 'CategoriesController@destroy']);
+        DB::table('actions')->delete(['id' => 'CategoryController@store']);
+        DB::table('actions')->delete(['id' => 'CategoryController@update']);
+        DB::table('actions')->delete(['id' => 'CategoryController@destroy']);
 
         DB::table('roles')->delete(['id' => 'categories-management']);
     }

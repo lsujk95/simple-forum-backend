@@ -17,21 +17,21 @@ return new class extends Migration
     public function up()
     {
         DB::table('actions')->insert([
-            'id' => 'ForumsController@store',
+            'id' => 'ForumController@store',
             'description' => 'Creates a new forum',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('actions')->insert([
-            'id' => 'ForumsController@update',
+            'id' => 'ForumController@update',
             'description' => 'Updates existing forum',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('actions')->insert([
-            'id' => 'ForumsController@destroy',
+            'id' => 'ForumController@destroy',
             'description' => 'Removes existing forum',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -46,21 +46,21 @@ return new class extends Migration
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'ForumsController@store',
+            'action_id' => 'ForumController@store',
             'role_id' => 'forums-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'ForumsController@update',
+            'action_id' => 'ForumController@update',
             'role_id' => 'forums-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'ForumsController@destroy',
+            'action_id' => 'ForumController@destroy',
             'role_id' => 'forums-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -74,9 +74,9 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::table('actions')->delete(['id' => 'ForumsController@store']);
-        DB::table('actions')->delete(['id' => 'ForumsController@update']);
-        DB::table('actions')->delete(['id' => 'ForumsController@destroy']);
+        DB::table('actions')->delete(['id' => 'ForumController@store']);
+        DB::table('actions')->delete(['id' => 'ForumController@update']);
+        DB::table('actions')->delete(['id' => 'ForumController@destroy']);
 
         DB::table('roles')->delete(['id' => 'forums-management']);
     }

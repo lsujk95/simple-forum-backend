@@ -17,21 +17,21 @@ return new class extends Migration
     public function up()
     {
         DB::table('actions')->insert([
-            'id' => 'RepliesController@store',
+            'id' => 'ReplyController@store',
             'description' => 'Creates a new reply',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('actions')->insert([
-            'id' => 'RepliesController@update',
+            'id' => 'ReplyController@update',
             'description' => 'Updates existing reply',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('actions')->insert([
-            'id' => 'RepliesController@destroy',
+            'id' => 'ReplyController@destroy',
             'description' => 'Removes existing reply',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -46,21 +46,21 @@ return new class extends Migration
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'RepliesController@store',
+            'action_id' => 'ReplyController@store',
             'role_id' => 'replies-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'RepliesController@update',
+            'action_id' => 'ReplyController@update',
             'role_id' => 'replies-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
 
         DB::table('action_role')->insert([
-            'action_id' => 'RepliesController@destroy',
+            'action_id' => 'ReplyController@destroy',
             'role_id' => 'replies-management',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -74,9 +74,9 @@ return new class extends Migration
      */
     public function down()
     {
-        DB::table('actions')->delete(['id' => 'RepliesController@store']);
-        DB::table('actions')->delete(['id' => 'RepliesController@update']);
-        DB::table('actions')->delete(['id' => 'RepliesController@destroy']);
+        DB::table('actions')->delete(['id' => 'ReplyController@store']);
+        DB::table('actions')->delete(['id' => 'ReplyController@update']);
+        DB::table('actions')->delete(['id' => 'ReplyController@destroy']);
 
         DB::table('roles')->delete(['id' => 'replies-management']);
     }
