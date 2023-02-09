@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class ReplyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns all replies.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -20,7 +20,7 @@ class ReplyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores a newly created reply.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
@@ -48,7 +48,7 @@ class ReplyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the specified reply.
      *
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\JsonResponse
@@ -59,7 +59,7 @@ class ReplyController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified reply.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Reply  $reply
@@ -91,7 +91,7 @@ class ReplyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the specified reply.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Reply  $reply

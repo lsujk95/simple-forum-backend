@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class ThreadController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns all threads.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -20,7 +20,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores a newly created thread.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
@@ -49,7 +49,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the specified thread.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Thread  $thread
@@ -66,7 +66,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified reply.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Thread  $thread
@@ -98,7 +98,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the specified reply.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Thread  $thread

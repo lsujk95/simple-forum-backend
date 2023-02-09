@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class ForumController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns all forums.
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -20,7 +20,7 @@ class ForumController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Stores a newly created forum.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
@@ -46,7 +46,7 @@ class ForumController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Displays the specified forum.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Forum  $forum
@@ -63,7 +63,7 @@ class ForumController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified forum.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Forum  $forum
@@ -90,7 +90,7 @@ class ForumController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the specified forum.
      *
      * @param  \App\Models\Forum  $forum
      * @return \Illuminate\Http\JsonResponse

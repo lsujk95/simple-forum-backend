@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Returns all categories.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
@@ -26,7 +26,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created category.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
@@ -51,7 +51,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Returns the specified category.
      *
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\JsonResponse
@@ -62,7 +62,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Updates the specified category.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Category  $category
@@ -88,7 +88,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the specified category.
      *
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\JsonResponse

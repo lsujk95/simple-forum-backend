@@ -15,7 +15,7 @@ class AuthController extends Controller
 {
 
     /**
-     * Register new user
+     * Register a new user
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
