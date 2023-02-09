@@ -1,0 +1,918 @@
+{
+	"info": {
+		"_postman_id": "6463f7e7-16b1-478a-ac64-2eb5e5be47c9",
+		"name": "simple-app-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16014837"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Refresh Token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"pm.environment.set(\"token\", jsonResponse['data']['token']);",
+									"pm.environment.set(\"token_expires_at\", jsonResponse['data']['expires_at']);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "pl",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/refresh-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Token",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"pm.environment.set(\"token\", jsonResponse['data']['token']);",
+									"pm.environment.set(\"token_expires_at\", jsonResponse['data']['expires_at']);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "test@test.test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/get-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"get-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"pm.environment.set(\"token\", jsonResponse['data']['token']);",
+									"pm.environment.set(\"token_expires_at\", jsonResponse['data']['expires_at']);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "test2@test.test",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "abc123!@#",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "Get User Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/user/me",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Actions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/user/actions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"actions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/user/roles",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/?withForums=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								""
+							],
+							"query": [
+								{
+									"key": "withForums",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Third Category",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Third Category Description",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/categories/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test Category 1A",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Test Category 1A Description",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/categories/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/categories/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "forums",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/forums/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Trash Forum",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Trash Forum Description",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/forums/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/forums/1?withThreads=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								"1"
+							],
+							"query": [
+								{
+									"key": "withThreads",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test Forum 1A",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Test Forum 1A Description",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/forums/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/forums/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"forums",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "threads",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/threads/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test Thread 99",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Hello Threads 99",
+									"type": "text"
+								},
+								{
+									"key": "forum_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/threads/1?withReplies=1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"1"
+							],
+							"query": [
+								{
+									"key": "withReplies",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Test Thread 9A",
+									"type": "text"
+								},
+								{
+									"key": "content",
+									"value": "Hello Thread 9A",
+									"type": "text"
+								},
+								{
+									"key": "forum_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/threads/9",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/threads/4",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"threads",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "replies",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/replies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"replies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "content",
+									"value": "Thread 1 Reply",
+									"type": "text"
+								},
+								{
+									"key": "thread_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/replies/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"replies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/replies/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"replies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "content",
+									"value": "Hello Thread 1",
+									"type": "text"
+								},
+								{
+									"key": "thread_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/replies/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"replies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/replies/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"replies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hello API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get CSRF Cookie (SPA Auth)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/sanctum/csrf-cookie",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"sanctum",
+						"csrf-cookie"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.add({",
+					"    key: 'Accept',",
+					"    value:'application/json',",
+					"});",
+					"",
+					"pm.request.headers.add({",
+					"    key: 'Accept-Language',",
+					"    value:'pl',",
+					"});",
+					"",
+					"pm.request.headers.add({",
+					"    key: 'Device-Name',",
+					"    value:'postman',",
+					"});",
+					"",
+					"",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token_expires_at",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
