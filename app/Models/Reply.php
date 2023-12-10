@@ -31,12 +31,12 @@ class Reply extends Model
         'user_id',
     ];
 
-    public function thread()
+    public function thread(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Thread::class);
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }

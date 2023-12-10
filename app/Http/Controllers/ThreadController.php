@@ -14,7 +14,7 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): \Illuminate\Http\JsonResponse
     {
         return ApiResult::getSuccessResult(Thread::all());
     }
@@ -25,7 +25,7 @@ class ThreadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -55,7 +55,7 @@ class ThreadController extends Controller
      * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Request $request, Thread $thread)
+    public function show(Request $request, Thread $thread): \Illuminate\Http\JsonResponse
     {
         $withReplies = $request->query('withReplies');
         if (!empty($withReplies) && boolval($withReplies)) {
@@ -72,7 +72,7 @@ class ThreadController extends Controller
      * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Thread $thread)
+    public function update(Request $request, Thread $thread): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -104,7 +104,7 @@ class ThreadController extends Controller
      * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request, Thread $thread)
+    public function destroy(Request $request, Thread $thread): \Illuminate\Http\JsonResponse
     {
         try {
             if ($thread->user_id != $request->user()->id) {

@@ -28,7 +28,7 @@ class Category extends Model
         'description',
     ];
 
-    public function forums()
+    public function forums(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Forum::class);
     }

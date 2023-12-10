@@ -29,12 +29,12 @@ class Role extends Model
         'description',
     ];
 
-    public function groups()
+    public function groups(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Group::class)->withTimestamps();
     }
 
-    public function actions()
+    public function actions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Action::class)->withTimestamps();
     }

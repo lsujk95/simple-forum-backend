@@ -28,12 +28,12 @@ class Group extends Model
         'title',
     ];
 
-    public function users()
+    public function users(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-    public function roles()
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }

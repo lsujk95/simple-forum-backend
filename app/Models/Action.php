@@ -27,7 +27,7 @@ class Action extends Model
         'description',
     ];
 
-    public function roles()
+    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
     }

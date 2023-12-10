@@ -12,7 +12,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me(Request $request)
+    public function me(Request $request): \Illuminate\Http\JsonResponse
     {
         return ApiResult::getSuccessResult($request->user());
     }
@@ -23,7 +23,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function actions(Request $request)
+    public function actions(Request $request): \Illuminate\Http\JsonResponse
     {
         return ApiResult::getSuccessResult($request->user()->getActions());
     }
@@ -34,7 +34,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function roles(Request $request)
+    public function roles(Request $request): \Illuminate\Http\JsonResponse
     {
         return ApiResult::getSuccessResult($request->user()->getRoles());
     }

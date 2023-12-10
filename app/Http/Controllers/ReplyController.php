@@ -14,7 +14,7 @@ class ReplyController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): \Illuminate\Http\JsonResponse
     {
         return ApiResult::getSuccessResult(Reply::all());
     }
@@ -25,7 +25,7 @@ class ReplyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'content' => 'required|string',
@@ -53,7 +53,7 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Reply $reply)
+    public function show(Reply $reply): \Illuminate\Http\JsonResponse
     {
         return ApiResult::getSuccessResult($reply);
     }
@@ -65,7 +65,7 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Reply $reply)
+    public function update(Request $request, Reply $reply): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'content' => 'required|string',
@@ -97,7 +97,7 @@ class ReplyController extends Controller
      * @param  \App\Models\Reply  $reply
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request, Reply $reply)
+    public function destroy(Request $request, Reply $reply): \Illuminate\Http\JsonResponse
     {
         try {
             if ($reply->user_id != $request->user()->id) {

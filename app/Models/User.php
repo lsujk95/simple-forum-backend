@@ -55,12 +55,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function groups()
+    public function groups(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Group::class)->withTimestamps();
     }
 
-    public function getRoles()
+    /**
+     * Returns the array of user roles
+     * @return mixed
+     */
+    public function getRoles(): array
     {
         $roles = DB::table('roles')
             ->select('roles.id')
@@ -76,7 +80,11 @@ class User extends Authenticatable
         })->toArray();
     }
 
-    public function getActions()
+    /**
+     * Returns the array of user actions
+     * @return mixed
+     */
+    public function getActions(): array
     {
         $actions = DB::table('actions')
             ->select('actions.id')
@@ -93,7 +101,13 @@ class User extends Authenticatable
         })->toArray();
     }
 
-    public function hasRole($role)
+
+    /**
+     * Checks if user has indicated role
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role): bool
     {
         return DB::table('roles')
             ->distinct()
@@ -105,7 +119,12 @@ class User extends Authenticatable
             ->exists();
     }
 
-    public function hasAction($action)
+    /**
+     * Checks if user has indicated action
+     * @param $action
+     * @return bool
+     */
+    public function hasAction($action): bool
     {
         return DB::table('actions')
             ->distinct()

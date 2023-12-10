@@ -32,17 +32,17 @@ class Thread extends Model
         'user_id',
     ];
 
-    public function forum()
+    public function forum(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Forum::class);
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function replies()
+    public function replies(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Reply::class)->with('user');
     }

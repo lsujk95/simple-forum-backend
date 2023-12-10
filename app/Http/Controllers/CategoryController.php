@@ -15,7 +15,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): \Illuminate\Http\JsonResponse
     {
         $withForums = $request->query('withForums');
         if (!empty($withForums) && boolval($withForums)) {
@@ -31,7 +31,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -56,7 +56,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Category $category)
+    public function show(Category $category): \Illuminate\Http\JsonResponse
     {
         return ApiResult::getSuccessResult($category);
     }
@@ -68,7 +68,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Category $category): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -93,7 +93,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): \Illuminate\Http\JsonResponse
     {
         try {
             $category->delete();

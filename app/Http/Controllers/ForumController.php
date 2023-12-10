@@ -14,7 +14,7 @@ class ForumController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): \Illuminate\Http\JsonResponse
     {
         return ApiResult::getSuccessResult(Forum::all());
     }
@@ -25,7 +25,7 @@ class ForumController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -52,7 +52,7 @@ class ForumController extends Controller
      * @param  \App\Models\Forum  $forum
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Request $request, Forum $forum)
+    public function show(Request $request, Forum $forum): \Illuminate\Http\JsonResponse
     {
         $withThreads = $request->query('withThreads');
         if (!empty($withThreads) && boolval($withThreads)) {
@@ -69,7 +69,7 @@ class ForumController extends Controller
      * @param  \App\Models\Forum  $forum
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Forum $forum)
+    public function update(Request $request, Forum $forum): \Illuminate\Http\JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -95,7 +95,7 @@ class ForumController extends Controller
      * @param  \App\Models\Forum  $forum
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Forum $forum)
+    public function destroy(Forum $forum): \Illuminate\Http\JsonResponse
     {
         try {
             $forum->delete();
