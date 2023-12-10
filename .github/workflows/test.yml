@@ -1,7 +1,0 @@
-name: test
-on: [push]
-jobs:
-  build_vendors:
-    runs-on: composer:2.6
-    steps:
-      - run: composer install
