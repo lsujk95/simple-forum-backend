@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Handlers\ApiResult;
 use App\Helpers\TokenHelper;
 use App\Models\User;
+use App\Repositories\UserRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +14,10 @@ use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
+
+    public function __construct(
+        public UserRepositoryInterface $userRepository,
+    ) { }
 
     /**
      * Register a new user
@@ -33,18 +38,17 @@ class AuthController extends Controller
         }
 
         try {
-            $user = User::where('email', $request->input('email'))->first();
+            $user = $this->userRepository->getByEmail($request->input('email'));
             if ($user) {
                 return ApiResult::getErrorResult('UNVALIDATED',[
                     'email' => [__('validation.user_already_exists')],
                 ]);
             }
 
-            $user = new User();
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $user->password = Hash::make($request->input('password'));
-            $user->save();
+            $user = $this->userRepository->create($request->all());
+            if ($user) {
+                return ApiResult::getErrorResult('CREATE-ERROR.1');
+            }
 
             $result = TokenHelper::createUserToken(
                 $user,
@@ -78,7 +82,7 @@ class AuthController extends Controller
         }
 
         try {
-            $user = User::where('email', $request->input('email'))->first();
+            $user = $this->userRepository->getByEmail($request->input('email'));
             if (!$user || !Hash::check($request->input('password'), $user->password)) {
                 return ApiResult::getErrorResult('UNVALIDATED',[
                     'email' => [__('validation.incorrect_credentials')],
@@ -125,7 +129,7 @@ class AuthController extends Controller
         }
 
         try {
-            $user = User::find($token->tokenable_id);
+            $user = $this->userRepository->getById($token->tokenable_id);
             if (empty($user)) {
                 return ApiResult::getErrorResult('REFRESH-ERROR.4');
             }

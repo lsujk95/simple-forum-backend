@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Handlers\ApiResult;
 use App\Models\Category;
+use App\Repositories\Eloquent\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
+
+    /**
+     *
+     */
+    public function __construct(
+       public CategoryRepository $categoryRepository,
+    ){ }
+
     /**
      * Returns all categories.
      *
@@ -19,10 +28,10 @@ class CategoryController extends Controller
     {
         $withForums = $request->query('withForums');
         if (!empty($withForums) && boolval($withForums)) {
-            return ApiResult::getSuccessResult(Category::with('forums')->get());
+            return ApiResult::getSuccessResult($this->categoryRepository->getAllWithForums());
         }
 
-        return ApiResult::getSuccessResult(Category::all());
+        return ApiResult::getSuccessResult($this->categoryRepository->getAll());
     }
 
     /**
@@ -43,7 +52,7 @@ class CategoryController extends Controller
         }
 
         try {
-            Category::create($request->all());
+            $this->categoryRepository->create($request->all());
             return ApiResult::getSuccessResult();
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), null, $e->getMessage());
@@ -80,7 +89,7 @@ class CategoryController extends Controller
         }
 
         try {
-            $category->update($request->all());
+            $this->categoryRepository->update($category, $request->all());
             return ApiResult::getSuccessResult();
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), null, $e->getMessage());
@@ -96,7 +105,7 @@ class CategoryController extends Controller
     public function destroy(Category $category): \Illuminate\Http\JsonResponse
     {
         try {
-            $category->delete();
+            $this->categoryRepository->delete($category);
             return ApiResult::getSuccessResult();
         } catch (\Exception $e) {
             return ApiResult::getErrorResult($e->getCode(), null, $e->getMessage());
